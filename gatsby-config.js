@@ -3,15 +3,13 @@ const path = require('path');
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Casper',
-    description: 'A port of the casper blog built for gatsby',
+    title: 'Open Source for Civil Rights',
+    description: 'Bringing developers together to contribute to the civil rights movement',
     siteUrl: 'https://gatsby-casper.netlify.com', // full path to blog - no ending slash
-  },
-  mapping: {
-    'MarkdownRemark.frontmatter.author': 'AuthorYaml',
   },
   plugins: [
     'gatsby-plugin-sitemap',
+    'gatsby-plugin-sass',
     {
       resolve: 'gatsby-plugin-sharp',
       options: {
@@ -61,12 +59,19 @@ module.exports = {
     'gatsby-plugin-typescript',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
-    'gatsby-transformer-yaml',
     'gatsby-plugin-feed',
     {
       resolve: 'gatsby-plugin-postcss',
       options: {
         postCssPlugins: [require('postcss-color-function'), require('cssnano')()],
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /assets/,
+        },
       },
     },
     {

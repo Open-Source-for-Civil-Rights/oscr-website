@@ -1,103 +1,71 @@
-import { Link } from 'gatsby';
-import { setLightness } from 'polished';
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
+import colors from '../styles/colors';
 
-import { colors } from '../styles/colors';
-import { outer, inner } from '../styles/shared';
-import config from '../website-config';
-
-export const Footer: React.FC = () => {
-  return (
-    <footer css={[outer, SiteFooter]}>
-      <div css={[inner, SiteFooterContent]}>
-        <section className="copyright">
-          <Link to="/">{config.title}</Link> &copy; {new Date().getFullYear()}{' '}
-          {config.footer && (
-            <Link to="/">
-              | {config.title} {config.footer}
-            </Link>
-          )}
-        </section>
-        <SiteFooterNav>
-          <Link to="/">Latest Posts</Link>
-          {config.facebook && (
-            <a href={config.facebook} target="_blank" rel="noopener noreferrer">
-              Facebook
-            </a>
-          )}
-          {config.twitter && (
-            <a href={config.twitter} target="_blank" rel="noopener noreferrer">
-              Twitter
-            </a>
-          )}
-
-          <a href="https://github.com/scttcper/gatsby-casper" target="_blank" rel="noopener noreferrer">
-            Casper
-          </a>
-
-          <a href="/rss.xml">RSS</a>
-        </SiteFooterNav>
-      </div>
-    </footer>
-  );
-};
-
-const SiteFooter = css`
-  position: relative;
-  padding-top: 20px;
-  padding-bottom: 60px;
-  color: #fff;
-  background: ${setLightness('0.0015', colors.darkgrey)};
-`;
-
-const SiteFooterContent = css`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.3rem;
-  a {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  a:hover {
-    color: rgba(255, 255, 255, 1);
-    text-decoration: none;
-  }
-  @media (max-width: 650px) {
+const FooterContainer = styled('div')`
+    padding-top: 3.75em;
+    padding-bottom: 3em;
+    display: flex;
     flex-direction: column;
-  }
-`;
+    align-items: center;
 
-const SiteFooterNav = styled.nav`
-  display: flex;
-
-  a {
-    position: relative;
-    margin-left: 20px;
-  }
-
-  a:before {
-    content: '';
-    position: absolute;
-    top: 11px;
-    left: -11px;
-    display: block;
-    width: 2px;
-    height: 2px;
-    background: #fff;
-    border-radius: 100%;
-  }
-
-  a:first-of-type:before {
-    display: none;
-  }
-  @media (max-width: 650px) {
-    a:first-of-type {
-      margin-left: 0;
+    svg {
+        max-width: 50px;
     }
-  }
 `;
 
+const SocialContainer = styled.div`
+flex-direction: row;
+display: flex;
+`;
+
+const Social = styled.img`
+height: 2rem;
+margin-top: .75rem;
+margin-left: 1rem;
+`;
+
+const FooterAuthor = styled('a')`
+    font-size: 0.75em;
+    color: ${colors.grey700};
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    margin-top: 1.5em;
+
+     &:hover {
+         color: ${colors.blue900};
+
+        .FooterSpooch {
+            animation-name: rotate;
+            animation-duration: 1.5s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+    }
+
+    @keyframes rotate {
+        from {transform: rotate(0deg);}
+        to {transform: rotate(360deg);}
+    }
+`;
+
+const Footer = () => (
+  <FooterContainer>
+    <SocialContainer>
+      <Link to="/">
+        <img alt="logo" style={{ width: '10rem' }} src="horizontal-logo.png"/>
+      </Link>
+      <a href="https://github.com/Open-Source-for-Civil-Rights">
+        <Social src="github-icon.png" alt="Github Icon"/>
+      </a>
+    </SocialContainer>
+    <FooterAuthor href="https://caelinsutch.com">
+      © 2020 — Designed & developed by Caelin Sutch
+    </FooterAuthor>
+  </FooterContainer>
+);
+
+export default Footer;
