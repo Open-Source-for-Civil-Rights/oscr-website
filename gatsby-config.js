@@ -63,7 +63,6 @@ module.exports = {
     'gatsby-plugin-typescript',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-feed',
     {
       resolve: 'gatsby-plugin-postcss',
       options: {

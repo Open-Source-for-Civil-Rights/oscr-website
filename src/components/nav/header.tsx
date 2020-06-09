@@ -184,11 +184,7 @@ const Header = () => {
       logo: file(
         relativePath: { eq: "assets/horizontal-logo.png" }
       ) {
-        childImageSharp {
-          fixed {
-            ...GatsbyImageSharpFixed
-          }
-        }
+        publicURL
       }
 
     menu: file(
@@ -210,11 +206,10 @@ const Header = () => {
       <HeaderContainer>
         <HeaderContent>
           <Link to="/">
-            <Img
+            <img
               alt="logo" css={Logo}
               style={{ width: '15em', height: '5em' }}
-              imgStyle={{ objectFit: 'contain' }}
-              fixed={data.logo.childImageSharp.fixed}/>
+              src={data.logo.publicURL}/>
           </Link>
           <RightHeader>
             <HeaderLinks className="menu-items">
