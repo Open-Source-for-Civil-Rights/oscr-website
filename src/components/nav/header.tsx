@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
+import Img from 'gatsby-image';
 import styled from '@emotion/styled';
 import colors from '../../styles/colors';
 import dimensions from '../../styles/dimensions';
+import { css } from 'emotion';
 
 const HeaderContainer = styled('nav')`
     padding-top: 3.75em;
@@ -143,8 +145,13 @@ const SideNavLinks = styled.div`
       }
     }
   }
+`;
 
-
+const Logo = css`
+  width: 15em;
+  img {
+    object-fit: contain;
+  }
 `;
 
 const XButton = styled.img`
@@ -172,13 +179,42 @@ const links = [
 ];
 
 const Header = () => {
+  const data = useStaticQuery(graphql`
+    {
+      logo: file(
+        relativePath: { eq: "assets/horizontal-logo.png" }
+      ) {
+        childImageSharp {
+          fixed {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+
+    menu: file(
+        relativePath: { eq: "assets/menu.svg" }
+      ) {
+        publicURL
+      }
+
+      x: file(
+        relativePath: { eq: "assets/x.svg" }
+      ) {
+        publicURL
+      }
+    }
+  `);
   const [headerOpen, setHeaderStatus] = useState(false);
   return (
     <>
       <HeaderContainer>
         <HeaderContent>
           <Link to="/">
-            <img alt="logo" style={{ width: '15em' }} src="horizontal-logo.png"/>
+            <Img
+              alt="logo" css={Logo}
+              style={{ width: '15em', height: '5em' }}
+              imgStyle={{ objectFit: 'contain' }}
+              fixed={data.logo.childImageSharp.fixed}/>
           </Link>
           <RightHeader>
             <HeaderLinks className="menu-items">
@@ -195,13 +231,13 @@ const Header = () => {
               }
             </HeaderLinks>
             <HamburgerMenuContainer>
-              <img src="menu.svg" alt="Hamburger Menu" onClick={() => setHeaderStatus(prevState => !prevState)}/>
+              <img src={data.menu.publicURL} alt="Hamburger Menu" onClick={() => setHeaderStatus(prevState => !prevState)}/>
             </HamburgerMenuContainer>
           </RightHeader>
         </HeaderContent>
       </HeaderContainer>
       <SideNavContainer style={{ width: headerOpen ? 300 : 0 }}>
-        <XButton src="x.svg" alt="Exit" onClick={() => setHeaderStatus(prevState => !prevState)}/>
+        <XButton src={data.x.publicURL} alt="Exit" onClick={() => setHeaderStatus(prevState => !prevState)}/>
         <SideNavLinks>
           {
             links.map(link => (

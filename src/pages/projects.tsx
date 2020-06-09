@@ -74,6 +74,7 @@ const ProjectPage: React.FC<props> = props => {
       <TextSection >
         <h1>Projects</h1>
         <h4>Projects that are currently in progress or being maintained by the community</h4>
+        <p>Have a project you want to see here? File a pull request or issue at our <a href="ttps://github.com/Open-Source-for-Civil-Rights">Github</a>.</p>
         <SelectContainer>
           <Select
             clearable={false}
@@ -86,16 +87,18 @@ const ProjectPage: React.FC<props> = props => {
         </SelectContainer>
       </TextSection>
       {
-        posts.map(post => (
-          <ProjectCard
-            key={post.fields.slug}
-            category={post.fields.primaryCategory}
-            title={post.frontmatter.title}
-            description={post.frontmatter.excerpt}
-            slug={post.fields.slug}
-            image={post.frontmatter.image.childImageSharp.fluid}
-          />
-        ))
+        posts.length === 0 ?
+          <h4 style={{ color: 'grey', fontWeight: 'normal', textAlign: 'center' }}>Nothing registered yet!</h4> :
+          posts.map(post => (
+            <ProjectCard
+              key={post.fields.slug}
+              category={post.fields.primaryCategory}
+              title={post.frontmatter.title}
+              description={post.frontmatter.excerpt}
+              slug={post.fields.slug}
+              image={post.frontmatter.image.childImageSharp.fluid}
+            />
+          ))
       }
     </Layout>
   );
