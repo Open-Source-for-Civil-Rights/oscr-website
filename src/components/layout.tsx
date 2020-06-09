@@ -7,7 +7,7 @@ import globalStyles from '../styles/global';
 import typeStyles from '../styles/typography';
 import dimensions from '../styles/dimensions';
 import Footer from './footer';
-import Header from './header';
+import Header from './nav/header';
 import '../styles/fonts.scss';
 
 const LayoutContainer = styled.div`

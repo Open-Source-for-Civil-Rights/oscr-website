@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import styled from '@emotion/styled';
-import colors from '../styles/colors';
-import dimensions from '../styles/dimensions';
+import colors from '../../styles/colors';
+import dimensions from '../../styles/dimensions';
 
-const HeaderContainer = styled('div')`
+const HeaderContainer = styled('nav')`
     padding-top: 3.75em;
     padding-bottom: 3em;
 `;
@@ -50,7 +50,6 @@ const HeaderLinks = styled('div')`
             width: 18px;
             height: 3px;
             background: transparent;
-            bottom: -3px;
             right: 50%;
             margin-right: -9px;
             transition: 100ms ease-in-out background;
@@ -76,7 +75,7 @@ const Header = () => (
   <HeaderContainer>
     <HeaderContent>
       <Link to="/">
-        <img alt="logo" style={{ width: '50%' }} src="horizontal-logo.png"/>
+        <img alt="logo" style={{ width: '50%' }} src="../../../static/horizontal-logo.png"/>
       </Link>
       <HeaderLinks>
         <Link

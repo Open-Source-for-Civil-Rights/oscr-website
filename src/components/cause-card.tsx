@@ -1,28 +1,18 @@
 import React from 'react';
 import Img, { FluidObject } from 'gatsby-image';
-import {
-  CardContainer,
-  ProjectCardAction, CardBlurb,
-  CardCategories,
-  CardContent,
-  CardTitle,
-} from './styles/card-defaults';
+import { CardBlurb, CardContainer, CardContent, CardTitle, ProjectCardAction } from './styles/card-defaults';
 
 interface props {
-  category: string;
   title: string;
   description: string;
-  slug: string;
+  link: string;
   image?: FluidObject;
 }
 
-const ProjectCard: React.FC<props> = ({ category, title, description, slug, image }) => {
+const CauseCard: React.FC<props> = ({ title, description, image }) => {
   return (
-    <CardContainer to={slug}>
-      <CardContent className="ProjectCardContent">
-        <CardCategories>
-          {category}
-        </CardCategories>
+    <CardContainer to="/projects" state={{ defaultFilter: title }}>
+      <CardContent>
         <CardTitle>
           {title}
         </CardTitle>
@@ -30,7 +20,7 @@ const ProjectCard: React.FC<props> = ({ category, title, description, slug, imag
           {description}
         </CardBlurb>
         <ProjectCardAction className="ProjectCardAction">
-          Details <span>&#8594;</span>
+          See all Projects <span>&#8594;</span>
         </ProjectCardAction>
       </CardContent>
       {
@@ -42,4 +32,4 @@ const ProjectCard: React.FC<props> = ({ category, title, description, slug, imag
   );
 };
 
-export default ProjectCard;
+export default CauseCard;

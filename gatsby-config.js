@@ -7,8 +7,12 @@ module.exports = {
     description: 'Bringing developers together to contribute to the civil rights movement',
     siteUrl: 'https://gatsby-casper.netlify.com', // full path to blog - no ending slash
   },
+  mapping: {
+    'MarkdownRemark.frontmatter.categories': 'CategoriesYaml',
+  },
   plugins: [
     'gatsby-plugin-sitemap',
+    'gatsby-transformer-yaml',
     'gatsby-plugin-sass',
     {
       resolve: 'gatsby-plugin-sharp',

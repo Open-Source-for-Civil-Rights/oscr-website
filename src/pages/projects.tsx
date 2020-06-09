@@ -17,44 +17,56 @@ const SelectContainer = styled.div`
     margin-bottom: 1rem;
 `;
 interface props {
+  location: Location;
   data: {
     allMarkdownRemark: {
       nodes: Array<{
         frontmatter: {
           title: string;
-          category: string;
+          categories: Array<{
+            id: string;
+          }>;
           excerpt: string;
           image: Image;
         };
         fields: {
           slug: string;
+          primaryCategory: string;
         };
       }>;
     };
-    allTags: {
-      group: Array<{
-        tag: string;
-        totalCount: number;
+    allCategoriesYaml: {
+      nodes: Array<{
+        id: string;
       }>;
     };
   };
 }
 
 const ProjectPage: React.FC<props> = props => {
-  console.log(props);
+  const allTags = props.data.allCategoriesYaml.nodes.concat([{ id: 'All' }]);
+  const { location } = props;
+  // @ts-expect-error
+  const { state = {} } = location;
+  const { defaultFilter } = state;
+  let defaultValue;
+  if (defaultFilter) {
+    defaultValue = { id: defaultFilter };
+  } else {
+    defaultValue = { id: 'All' };
+  }
+
   const allPosts = props.data.allMarkdownRemark.nodes;
-  const [posts, setPosts] = useState(allPosts);
-  const allTags = props.data.allTags.group.concat([{ tag: 'All', totalCount: 1 }]);
+  const [posts, setPosts] = useState(sortByCategory(defaultValue.id));
 
   function sortByCategory(sortValue: string) {
-    const sortedPosts = allPosts.filter(post => {
+    return allPosts.filter(post => {
       if (sortValue === 'All') {
         return true;
       }
 
-      return post.frontmatter.category === sortValue;
+      return post.frontmatter.categories.filter(category => category.id === sortValue).length !== 0;
     });
-    setPosts(sortedPosts);
   }
 
   return (
@@ -65,11 +77,11 @@ const ProjectPage: React.FC<props> = props => {
         <SelectContainer>
           <Select
             clearable={false}
-            values={[{ tag: 'All', totalCount: 1 }]}
+            values={[defaultValue]}
             options={allTags}
-            labelField="tag"
-            valueField="tag"
-            onChange={value => sortByCategory(value[0].tag)}
+            labelField="id"
+            valueField="id"
+            onChange={value => setPosts(sortByCategory(value[0].id))}
           />
         </SelectContainer>
       </TextSection>
@@ -77,7 +89,7 @@ const ProjectPage: React.FC<props> = props => {
         posts.map(post => (
           <ProjectCard
             key={post.fields.slug}
-            category={post.frontmatter.category}
+            category={post.fields.primaryCategory}
             title={post.frontmatter.title}
             description={post.frontmatter.excerpt}
             slug={post.fields.slug}
@@ -96,7 +108,9 @@ query {
       frontmatter {
         title
         excerpt
-        category
+        categories {
+          id
+        }
         image {
           childImageSharp {
             fluid(maxWidth: 3720) {
@@ -107,12 +121,13 @@ query {
       }
       fields {
         slug
+        primaryCategory
       }
     }
   }
-  allTags: allMarkdownRemark {
-    group(field: frontmatter___category) {
-      tag: fieldValue
+  allCategoriesYaml {
+    nodes {
+      id
     }
   }
 }

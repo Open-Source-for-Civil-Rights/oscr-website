@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands, @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { createFilePath } = require('gatsby-source-filesystem');
 
 const path = require('path');
@@ -30,6 +30,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         name: 'layout',
         value: layout || '',
       });
+
+      createNodeField({
+        node,
+        name: 'primaryCategory',
+        value: node.frontmatter.categories[0] || '',
+      });
     }
   }
 };
@@ -44,8 +50,9 @@ exports.createPages = async ({ graphql, actions }) => {
           node {
             frontmatter {
               title
-              category
-              date
+              categories {
+                id
+              }
               excerpt
             }
             fields {
@@ -55,11 +62,16 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allCategoriesYaml {
+        nodes {
+          id
+          description
+        }
+      }
     }
   `);
 
   if (result.errors) {
-    console.error(result.errors);
     throw new Error(result.errors);
   }
 
@@ -69,12 +81,12 @@ exports.createPages = async ({ graphql, actions }) => {
   posts.forEach(({ node }) => {
     const { slug, layout } = node.fields;
     createPage({
-      path: slug,
-      // Note that the template has to exist first, or else the build will fail.
+      path: slug, // Note that the template has to exist first, or else the build will fail.
       component: path.resolve(`./src/templates/${layout || 'post'}.tsx`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug,
+        primaryCategory: node.frontmatter.categories[0].id || '',
       },
     });
   });
