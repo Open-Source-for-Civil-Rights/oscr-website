@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
 import styled from '@emotion/styled';
 import colors from '../../styles/colors';
 import dimensions from '../../styles/dimensions';
@@ -207,7 +206,7 @@ const Header = () => {
         <HeaderContent>
           <Link to="/">
             <img
-              alt="logo" css={Logo}
+              alt="logo"
               style={{ width: '15em', height: '5em' }}
               src={data.logo.publicURL}/>
           </Link>

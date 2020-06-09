@@ -2,6 +2,7 @@
 # Node.js-Specific Ignores
 # =========================
 
+.firebase
 .idea
 .cache
 
