@@ -82,7 +82,7 @@ exports.createPages = async ({ graphql, actions }) => {
     const { slug, layout } = node.fields;
     createPage({
       path: slug, // Note that the template has to exist first, or else the build will fail.
-      component: path.resolve(`./src/templates/${layout || 'post'}.tsx`),
+      component: path.resolve(`./src/templates/${layout || 'project'}.tsx`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
         slug,
