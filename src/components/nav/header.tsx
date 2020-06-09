@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'gatsby';
 import styled from '@emotion/styled';
 import colors from '../../styles/colors';
@@ -14,10 +14,15 @@ const HeaderContent = styled('div')`
     justify-content: space-between;
 `;
 
+const RightHeader = styled.div`
+  width: 100%;
+  justify-content: flex-end;
+`;
+
 const HeaderLinks = styled('div')`
     display: grid;
     margin-top: 1.5rem;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(4, auto);
     grid-gap: 2em;
     justify-content: flex-end;
     width: 100%;
@@ -69,36 +74,150 @@ const HeaderLinks = styled('div')`
             }
         }
     }
+
+  @media(max-width: ${dimensions.maxwidthTablet}px) {
+    display: none;
+  }
 `;
 
-const Header = () => (
-  <HeaderContainer>
-    <HeaderContent>
-      <Link to="/">
-        <img alt="logo" style={{ width: '50%' }} src="../../../static/horizontal-logo.png"/>
-      </Link>
-      <HeaderLinks>
-        <Link
-          activeClassName="Link--is-active"
-          to="/projects"
-        >
-          Projects
-        </Link>
-        <Link
-          activeClassName="Link--is-active"
-          to="/supported-causes"
-        >
-          Supported Causes
-        </Link>
-        <Link
-          activeClassName="Link--is-active"
-          to="/about"
-        >
-          About
-        </Link>
-      </HeaderLinks>
-    </HeaderContent>
-  </HeaderContainer>
-);
+const HamburgerMenuContainer = styled.div`
+  float: right;
+  margin-top: 1rem;
+  @media(min-width: ${dimensions.maxwidthTablet}px) {
+    display: none;
+  }
+`;
+
+const SideNavContainer = styled.div`
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 30px;
+  box-shadow: 5px 10px 20px grey;
+`;
+
+const SideNavLinks = styled.div`
+  padding-left: 2rem;
+  padding-top: 2rem;
+  a {
+    color: currentColor;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 1.5em;
+    font-weight: 600;
+    padding: 1rem;
+    display: block;
+    position: relative;
+    transition: 0.3s;
+    border-bottom: 3px solid transparent;
+
+    &:after {
+        position: absolute;
+        content: "";
+        bottom: 0;
+        width: 4rem;
+        height: 3px;
+        background: transparent;
+        right: 50%;
+        margin-right: -9px;
+        transition: 100ms ease-in-out background;
+    }
+    &:hover {
+      &:after {
+          background: ${colors.blue500};
+          transition: 100ms ease-in-out background;
+      }
+      }
+    &.Link--is-active {
+      &:after {
+        background: ${colors.blue500};
+        transition: 100ms ease-in-out background;
+      }
+    }
+  }
+
+
+`;
+
+const XButton = styled.img`
+  float: right;
+  padding-right: 30px;
+`;
+
+const links = [
+  {
+    name: 'Home',
+    link: '/',
+  },
+  {
+    name: 'Projects',
+    link: '/projects',
+  },
+  {
+    name: 'Supported Causes',
+    link: '/supported-causes',
+  },
+  {
+    name: 'About',
+    link: '/about',
+  },
+];
+
+const Header = () => {
+  const [headerOpen, setHeaderStatus] = useState(false);
+  return (
+    <>
+      <HeaderContainer>
+        <HeaderContent>
+          <Link to="/">
+            <img alt="logo" style={{ width: '15em' }} src="horizontal-logo.png"/>
+          </Link>
+          <RightHeader>
+            <HeaderLinks className="menu-items">
+              {
+                links.map(link => (
+                  <Link
+                    key={link.link}
+                    activeClassName="Link--is-active"
+                    to={link.link}
+                  >
+                    {link.name}
+                  </Link>
+                ))
+              }
+            </HeaderLinks>
+            <HamburgerMenuContainer>
+              <img src="menu.svg" alt="Hamburger Menu" onClick={() => setHeaderStatus(prevState => !prevState)}/>
+            </HamburgerMenuContainer>
+          </RightHeader>
+        </HeaderContent>
+      </HeaderContainer>
+      <SideNavContainer style={{ width: headerOpen ? 300 : 0 }}>
+        <XButton src="x.svg" alt="Exit" onClick={() => setHeaderStatus(prevState => !prevState)}/>
+        <SideNavLinks>
+          {
+            links.map(link => (
+              <Link
+                key={link.link}
+                activeClassName="Link--is-active"
+                to={link.link}
+              >
+                {link.name}
+              </Link>
+            ))
+          }
+        </SideNavLinks>
+      </SideNavContainer>
+    </>
+  );
+};
 
 export default Header;
