@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import { graphql, Link, useStaticQuery } from 'gatsby';
 import styled from '@emotion/styled';
 import colors from '../styles/colors';
+import GatsbyImage from 'gatsby-image';
 
 const FooterContainer = styled('div')`
     padding-top: 3.75em;
@@ -18,12 +19,6 @@ const FooterContainer = styled('div')`
 const SocialContainer = styled.div`
 flex-direction: row;
 display: flex;
-`;
-
-const Social = styled.img`
-height: 2rem;
-margin-top: .75rem;
-margin-left: 1rem;
 `;
 
 const FooterAuthor = styled('a')`
@@ -52,20 +47,52 @@ const FooterAuthor = styled('a')`
     }
 `;
 
-const Footer = () => (
-  <FooterContainer>
-    <SocialContainer>
-      <Link to="/">
-        <img alt="logo" style={{ width: '10rem' }} src="horizontal-logo.png"/>
-      </Link>
-      <a href="https://github.com/Open-Source-for-Civil-Rights">
-        <Social src="github-icon.png" alt="Github Icon"/>
-      </a>
-    </SocialContainer>
-    <FooterAuthor href="https://caelinsutch.com">
-      © 2020 — Designed & developed by Caelin Sutch
-    </FooterAuthor>
-  </FooterContainer>
-);
+const Footer = () => {
+  const data = useStaticQuery(graphql`
+    {
+      logo: file(
+        relativePath: { eq: "assets/horizontal-logo.png" }
+      ) {
+        childImageSharp {
+          fixed {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+
+    githubIcon: file(
+        relativePath: { eq: "assets/github-icon.png" }
+      ) {
+        childImageSharp {
+          fixed {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+    }
+  `);
+  return (
+    <FooterContainer>
+      <SocialContainer>
+        <Link to="/">
+          <GatsbyImage
+            alt="logo" style={{ width: '10rem', height: '4rem' }} imgStyle={{ objectFit: 'contain' }}
+            fixed={data.logo.childImageSharp.fixed}/>
+        </Link>
+        <a href="https://github.com/Open-Source-for-Civil-Rights">
+          <GatsbyImage
+            style={{ height: '2rem',
+              marginTop: '1rem',
+              marginLeft: '1rem' }}
+            fixed={data.githubIcon.childImageSharp.fixed} imgStyle={{ objectFit: 'contain' }}
+            alt="Github Icon"/>
+        </a>
+      </SocialContainer>
+      <FooterAuthor href="https://caelinsutch.com">
+        © 2020 — Designed & developed by Caelin Sutch
+      </FooterAuthor>
+    </FooterContainer>
+  );
+};
 
 export default Footer;

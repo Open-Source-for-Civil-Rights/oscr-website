@@ -1,6 +1,6 @@
 - id: 'BLM'
   description: 'Black Lives Matter movement fighting for elimination of racism in society.'
   image: img/blm.jpg
-- id: 'LGBTQ'
-  description: 'Test'
-  image: img/lgbtq.jpg
+#- id: 'LGBTQ'
+#  description: 'Test'
+#  image: img/lgbtq.jpg
