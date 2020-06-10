@@ -54,6 +54,7 @@ const Layout: React.FC<Props> = ({ children }) => (
       <>
         <Helmet>
           <html lang={config.lang} />
+          <link rel="icon" href="/favicon.ico" />
           {config.googleSiteVerification && (
             <meta
               name="google-site-verification"

@@ -13,6 +13,6 @@ To create an easy way for people to email CA Governor Gavin Newsome demanding im
 ## Technology Stack
 - ReactJS
 
-## Where Contributers can Help
+## Where Contributors can Help
 - Adding more email templates
 - Compiling more resources together

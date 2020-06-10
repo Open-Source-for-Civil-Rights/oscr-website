@@ -20,6 +20,7 @@ const SelectContainer = styled.div`
 `;
 interface props {
   location: Location;
+  path: string;
   data: {
     allMarkdownRemark: {
       nodes: Array<{
