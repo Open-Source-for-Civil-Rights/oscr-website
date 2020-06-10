@@ -20,7 +20,7 @@ const CauseCard: React.FC<props> = ({ title, description, image }) => {
           {description}
         </CardBlurb>
         <ProjectCardAction className="ProjectCardAction">
-          See all Projects <span>&#8594;</span>
+          See {title} projects<span>&#8594;</span>
         </ProjectCardAction>
       </CardContent>
       {

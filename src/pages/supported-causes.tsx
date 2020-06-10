@@ -26,7 +26,7 @@ const SupportedCausesPage: React.FC<Props> = props => {
   return (
     <Layout>
       <TextSection>
-        <h1>Causes we Support</h1>
+        <h1>Causes We Support</h1>
         <p>Our projects encompass a variety of social justice causes. Here are a few of them.</p>
       </TextSection>
       {
