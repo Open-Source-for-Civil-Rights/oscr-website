@@ -1,9 +1,8 @@
 {
-  "name": "gatsby-casper",
-  "description": "Casper for gatsby",
+  "name": "open-source-for-civil-rights",
+  "description": "Open Source for Civil Rights Website",
   "version": "0.0.0",
-  "private": true,
-  "author": "Scott Cooper <scttcper@gmail.com>",
+  "author": "Caelin Sutch <caelinsutch@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",

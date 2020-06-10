@@ -24,23 +24,18 @@ export interface WebsiteConfig {
    * Meta tag for Google Webmaster Tools
    */
   googleSiteVerification?: string;
-  /**
-   * Appears alongside the footer, after the credits
-   */
-  footer?: string;
 }
 
 const config: WebsiteConfig = {
   title: 'OSCR Website',
-  description: 'The professional publishing platform',
-  coverImage: 'img/blog-cover.png',
-  logo: 'img/ghost-logo.png',
+  description: 'The Open Source for Civil Rights organization. Harnessing the power of technology to enact social change.',
+  coverImage: 'assets/cover-card.png',
+  logo: 'assets/horizontal-logo.png',
   lang: 'en',
-  siteUrl: 'https://gatsby-casper.netlify.com',
-  facebook: 'https://www.facebook.com/ghost',
-  twitter: 'https://twitter.com/tryghost',
+  siteUrl: 'https://opensourceforcivilrights.com',
+  facebook: 'https://www.facebook.com/oscr',
+  twitter: 'https://twitter.com/oscr',
   googleSiteVerification: 'GoogleCode',
-  footer: 'is based on Gatsby Casper',
 };
 
 export default config;

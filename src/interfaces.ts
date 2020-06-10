@@ -25,5 +25,6 @@ export interface FluidObject {
 export interface Image {
   childImageSharp: {
     fluid: FluidObject;
+    fixed: FixedObject;
   };
 }

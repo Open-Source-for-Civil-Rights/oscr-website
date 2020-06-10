@@ -9,6 +9,8 @@ import dimensions from '../styles/dimensions';
 import Footer from './footer';
 import Header from './nav/header';
 import '../styles/fonts.scss';
+import { Helmet } from 'react-helmet';
+import config from '../website-config';
 
 const LayoutContainer = styled.div`
     max-width: ${dimensions.maxwidthDesktop}px;
@@ -38,25 +40,38 @@ interface Props {
 const Layout: React.FC<Props> = ({ children }) => (
   <StaticQuery
     query={graphql`
-            query SiteTitleQuery {
-                site {
-                    siteMetadata {
-                        title
-                    }
+            query {
+              siteBanner: file(relativePath: { eq: "assets/cover-card.png" }) {
+                childImageSharp {
+                  fixed {
+                    ...GatsbyImageSharpFixed
+                  }
                 }
+              }
             }
         `}
     render={() => (
-      <LayoutContainer className="div">
-        <Global styles={[globalStyles, typeStyles]} />
-        <div className="Layout">
-          <Header />
-          <main className="Layout__content">
-            {children}
-          </main>
-          <Footer />
-        </div>
-      </LayoutContainer>
+      <>
+        <Helmet>
+          <html lang={config.lang} />
+          {config.googleSiteVerification && (
+            <meta
+              name="google-site-verification"
+              content={config.googleSiteVerification}
+            />
+          )}
+        </Helmet>
+        <LayoutContainer className="div">
+          <Global styles={[globalStyles, typeStyles]} />
+          <div className="Layout">
+            <Header />
+            <main className="Layout__content">
+              {children}
+            </main>
+            <Footer />
+          </div>
+        </LayoutContainer>
+      </>
     )}
   />
 );
