@@ -5,9 +5,9 @@ The Open Source for Civil Rights Foundation (OSCR) was founded to focus the effo
 
 *Side note*
 
-We also have a ton of fun badges over at 
+We also have a ton of fun badges [here](https://github.com/Open-Source-for-Civil-Rights/badges)
 
-[![forthebadge](https://opensourceforcivilrightsbadges.web.app/blm.svg)](https://forthebadge.com)
+[![opensourceforcivilrights](https://badges.opensourceforcivilrights.com/we-love-blm.svg)](https://opensourceforcivilrights.com)
 
 # Contributing
 
