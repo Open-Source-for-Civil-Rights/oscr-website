@@ -10,19 +10,7 @@ We also have a ton of fun badges [here](https://github.com/Open-Source-for-Civil
 [![opensourceforcivilrights](https://badges.opensourceforcivilrights.com/we-love-blm.svg)](https://opensourceforcivilrights.com)
 
 # Contributing
+Please read [the contributing guidelines](CONTRIBUTING.md) if you'd like to contribute.
 
-Have a project you want to add? We'd love to see it here! Projects are stored in markdown format in `src/content`. 
-To submit a new project, please file a PR with a `.md` file with the following header:
-```markdown
----
-title: 'CA Black Lives Matter Email Generator'
-categories: ['BLM']
-image: ./img/blm-resources.png
-excerpt: An easy way to prefill a template to email to the CA state governor demanding police reform.
-githubUrl: https://github.com/caelinsutch/blm-resources
-liveProject: https://caelinsutch.github.io/blm-resources/
----
-```
-
-along with an image in the `img` directory. Please use descriptive naming!
+Questions, comments, concerns? Feel free to send me a message on Twitter, @oscrorg.
 
