@@ -114,7 +114,7 @@ const ProjectPage: React.FC<props> = props => {
         <TextSection >
           <h1>Projects</h1>
           <h4>Projects that are currently in progress or being maintained by the community</h4>
-          <p>Have a project you want to see here? File a pull request or issue at our <a href="ttps://github.com/Open-Source-for-Civil-Rights">Github</a>.</p>
+          <p>Have a project you want to see here? File a pull request or issue at our <a href="https://github.com/Open-Source-for-Civil-Rights">Github</a>.</p>
           <SelectContainer>
             <Select
               clearable={false}
